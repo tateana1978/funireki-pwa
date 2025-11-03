@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>福大歴史研究部 表採遺物情報</title>
+
+  <!-- PWA設定 -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#ffffff">
-  <script>
-    // 開いた瞬間にGoogleサイトへ自動移動
-    window.onload = () => {
-      window.location.href = "https://sites.google.com/view/funireki2305";
-    };
-  </script>
+
+  <!-- 自動リダイレクト：meta refreshを使用 -->
+  <meta http-equiv="refresh" content="1;url=https://sites.google.com/view/funireki2305">
 </head>
 <body>
-  <p>福大歴史研究部サイトへ移動中です...</p>
+  <h3>福大歴史研究部サイトへ移動中です...</h3>
+  <p>自動的に開かない場合は、<a href="https://sites.google.com/view/funireki2305">こちらをクリック</a>してください。</p>
 </body>
 </html>
