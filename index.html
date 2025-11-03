@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>福大歴史研究部 表採遺物情報</title>
 
-  <!-- PWA関連 -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="icons/icon-192.png">
@@ -33,23 +32,19 @@
 </head>
 <body>
   <h2>福大歴史研究部 表採遺物情報サイト</h2>
-  <p>「ホーム画面に追加」を選ぶと、勾玉アイコンがスマホに設置されます。</p>
-  <button id="openSite">サイトを開く</button>
+  <p>このサイトをホーム画面に追加すると、勾玉アイコンが表示されます。</p>
+  <button id="openSite">表採遺物情報サイトを開く</button>
 
   <script>
-    // Googleサイトへ移動するボタン
-    document.getElementById("openSite").addEventListener("click", () => {
-      window.location.replace("https://sites.google.com/view/funireki2305");
-    });
-
-    // --- PWAインストールイベント処理 ---
     let deferredPrompt;
+
+    // インストールイベントキャッチ
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
 
       const installButton = document.createElement('button');
-      installButton.textContent = 'ホーム画面に追加';
+      installButton.textContent = '📲 ホーム画面に追加';
       installButton.style.marginTop = '20px';
       document.body.appendChild(installButton);
 
@@ -61,12 +56,17 @@
       });
     });
 
-    // --- Service Worker登録 ---
+    // Service Worker登録
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered successfully.'))
+        .then(() => console.log('Service Worker registered.'))
         .catch((err) => console.log('Service Worker registration failed:', err));
     }
+
+    // Googleサイトへ移動ボタン
+    document.getElementById("openSite").addEventListener("click", () => {
+      window.location.href = "https://sites.google.com/view/funireki2305";
+    });
   </script>
 </body>
 </html>
