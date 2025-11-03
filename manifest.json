@@ -1,10 +1,10 @@
 {
-  "name": "福岡大学 歴史研究部 OBOG 表採情報",
-  "short_name": "表採情報",
+  "name": "福大歴史研究部 表採遺物情報",
+  "short_name": "表採遺物情報",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#00796B",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "icons/icon-192.png",
