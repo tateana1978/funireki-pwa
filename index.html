@@ -5,15 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>福大歴史研究部 表採遺物情報</title>
 
-  <!-- PWA設定 -->
+  <!-- PWA関連 -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="icons/icon-192.png">
 
-  <!-- 自動リダイレクト：meta refreshを使用 -->
-  <meta http-equiv="refresh" content="1;url=https://sites.google.com/view/funireki2305">
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+      text-align: center;
+      margin-top: 25%;
+      color: #333;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <h3>福大歴史研究部サイトへ移動中です...</h3>
-  <p>自動的に開かない場合は、<a href="https://sites.google.com/view/funireki2305">こちらをクリック</a>してください。</p>
+  <h2>福大歴史研究部 表採遺物情報サイト</h2>
+  <p>「ホーム画面に追加」を選ぶと、勾玉アイコンがスマホに設置されます。</p>
+  <button id="openSite">サイトを開く</button>
+
+  <script>
+    // Googleサイトへ移動するボタン
+    document.getElementById("openSite").addEventListener("click", () => {
+      window.location.replace("https://sites.google.com/view/funireki2305");
+    });
+
+    // --- PWAインストールイベント処理 ---
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const installButton = document.createElement('button');
+      installButton.textContent = 'ホーム画面に追加';
+      installButton.style.marginTop = '20px';
+      document.body.appendChild(installButton);
+
+      installButton.addEventListener('click', async () => {
+        installButton.style.display = 'none';
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+      });
+    });
+
+    // --- Service Worker登録 ---
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registered successfully.'))
+        .catch((err) => console.log('Service Worker registration failed:', err));
+    }
+  </script>
 </body>
 </html>
