@@ -1,31 +1,72 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>福大歴史研究部 表採遺物情報</title>
 
-  <!-- PWA設定 -->
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="icons/icon-192.png">
 
-  <script>
-    // Service Worker登録
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(() => console.log('✅ Service Worker registered'))
-          .catch((err) => console.log('❌ SW registration failed:', err));
-      });
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+      text-align: center;
+      margin-top: 25%;
+      color: #333;
     }
-
-    // 開いた瞬間にGoogleサイトへ移動
-    window.onload = () => {
-      window.location.href = "https://sites.google.com/view/funireki2305";
-    };
-  </script>
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <p>福大歴史研究部 表採遺物情報サイトへ移動中...</p>
+  <h2>福大歴史研究部 表採遺物情報サイト</h2>
+  <p>このサイトをホーム画面に追加すると、勾玉アイコンが表示されます。</p>
+  <button id="openSite">表採遺物情報サイトを開く</button>
+
+  <script>
+    let deferredPrompt;
+
+    // インストールイベントキャッチ
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const installButton = document.createElement('button');
+      installButton.textContent = '📲 ホーム画面に追加';
+      installButton.style.marginTop = '20px';
+      document.body.appendChild(installButton);
+
+      installButton.addEventListener('click', async () => {
+        installButton.style.display = 'none';
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+      });
+    });
+
+    // Service Worker登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registered.'))
+        .catch((err) => console.log('Service Worker registration failed:', err));
+    }
+
+    // Googleサイトへ移動ボタン
+    document.getElementById("openSite").addEventListener("click", () => {
+      window.location.href = "https://sites.google.com/view/funireki2305";
+    });
+  </script>
 </body>
 </html>
