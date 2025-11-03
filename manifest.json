@@ -2,11 +2,9 @@
   "name": "福大歴史研究部 表採遺物情報",
   "short_name": "表採遺物情報",
   "start_url": "./index.html",
-  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
-  "description": "福大歴史研究部による表採遺物情報サイトへのリンクPWA",
   "icons": [
     {
       "src": "icons/icon-192.png",
